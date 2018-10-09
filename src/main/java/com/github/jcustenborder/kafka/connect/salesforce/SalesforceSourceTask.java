@@ -196,7 +196,7 @@ public class SalesforceSourceTask extends SourceTask {
   public List<SourceRecord> poll() throws InterruptedException {
     List<SourceRecord> records = new ArrayList<>(1024);
 
-    while (!this.messageQueue.drain(records)) {
+    while (!this.messageQueue.drain(records, 1000)) {
 
     }
 
