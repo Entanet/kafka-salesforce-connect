@@ -180,6 +180,20 @@ public class SalesforceSourceTask extends SourceTask {
           Long sourceOffset = (Long) partitionOffset.get("replayId");
           log.info("PushTopic {} - found stored offset {}", config.salesForcePushTopicName, sourceOffset);
           replay.put(channel, sourceOffset);
+        } else {
+          replay.put(channel, -1L);
+        }
+      }
+    });
+
+    this.streamingClient.getChannel(Channel.META_SUBSCRIBE).addListener(new ClientSessionChannel.MessageListener() {
+      @Override
+      public void onMessage(ClientSessionChannel clientSessionChannel, Message message) {
+        log.info("onMessage(META_SUBSCRIBE) - {}", message);
+        if (message.isSuccessful()) {
+          log.info("onMessage(META_SUBSCRIBE) - Subscribing to {}", channel);
+        } else {
+          log.error("Error during subscribe: {} {}", message.get("error"), message.get("exception"));
         }
       }
     });
