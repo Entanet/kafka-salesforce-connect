@@ -25,7 +25,7 @@ import com.github.jcustenborder.kafka.connect.salesforce.rest.model.SObjectsResp
 import com.github.jcustenborder.kafka.connect.utils.VersionUtil;
 import com.github.jcustenborder.kafka.connect.utils.data.SourceRecordConcurrentLinkedDeque;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.repackaged.com.google.common.base.Preconditions;
+import com.google.common.base.Preconditions;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.source.SourceRecord;
@@ -35,7 +35,7 @@ import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.client.BayeuxClient;
-import org.cometd.client.transport.LongPollingTransport;
+import org.cometd.client.http.jetty.JettyHttpClientTransport;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.Request;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
@@ -82,7 +82,7 @@ public class SalesforceSourceTask extends SourceTask {
 
     Map<String, Object> options = new HashMap<>();
 
-    LongPollingTransport transport = new LongPollingTransport(options, httpClient) {
+    JettyHttpClientTransport transport = new JettyHttpClientTransport(options, httpClient) {
 
       @Override
       protected void customize(Request request) {

@@ -22,9 +22,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSession;
-import org.cometd.bayeux.client.ClientSession.Extension.Adapter;
+import org.cometd.bayeux.client.ClientSession.Extension;
 
-public class ReplayExtension extends Adapter {
+public class ReplayExtension implements Extension {
   private static final String EXTENSION_NAME = "replay";
   private final ConcurrentMap<String, Long> dataMap;
   private final AtomicBoolean supported = new AtomicBoolean();

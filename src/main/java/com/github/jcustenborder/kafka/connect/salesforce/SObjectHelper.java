@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.jcustenborder.kafka.connect.salesforce.rest.model.SObjectDescriptor;
 import com.github.jcustenborder.kafka.connect.utils.data.Parser;
 import com.github.jcustenborder.kafka.connect.utils.data.type.DateTypeParser;
-import com.google.api.client.util.Preconditions;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import org.apache.kafka.common.utils.SystemTime;
 import org.apache.kafka.common.utils.Time;
