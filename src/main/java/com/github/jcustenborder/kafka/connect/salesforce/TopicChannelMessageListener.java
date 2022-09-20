@@ -44,9 +44,8 @@ class TopicChannelMessageListener implements ClientSessionChannel.MessageListene
   @Override
   public void onMessage(ClientSessionChannel clientSessionChannel, Message message) {
     try {
-      String jsonMessage = message.getJSON();
-      log.trace("onMessage() - jsonMessage = {}", jsonMessage);
-      JsonNode jsonNode = ObjectMapperFactory.INSTANCE.readTree(jsonMessage);
+      log.trace("onMessage() - jsonMessage = {}", message);
+      JsonNode jsonNode = ObjectMapperFactory.INSTANCE.convertValue(message, JsonNode.class);
       SourceRecord record = this.sObjectHelper.convert(jsonNode);
       this.records.add(record);
     } catch (Exception ex) {
